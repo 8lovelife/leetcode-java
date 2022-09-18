@@ -38,4 +38,10 @@ public class EasyTest {
         ListNode l3 = AddTwoNumbers.addTwoNumbers(l1DummyHead.next,l2DummyHead.next);
         System.out.println(l3);
     }
+
+    @Test
+    public void testLongestLenthSubString(){
+        int lengthOfLongestSubstring = LengthOfLongestSubstring.lengthOfLongestSubstring("abaab!bb");
+        System.out.println(lengthOfLongestSubstring);
+    }
 }
