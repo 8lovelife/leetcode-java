@@ -44,4 +44,12 @@ public class EasyTest {
         int lengthOfLongestSubstring = LengthOfLongestSubstring.lengthOfLongestSubstring("abaab!bb");
         System.out.println(lengthOfLongestSubstring);
     }
+
+    @Test
+    public void testMadianOfTwoSortedArray(){
+        int[] nums1 = new int[]{1,2};
+        int[] nums2 = new int[]{3,4};
+        double medianOfTwoSortedArray = MedianTwoSortedArray.medianOfTwoSortedArray(nums1, nums2);
+        System.out.println(medianOfTwoSortedArray);
+    }
 }
