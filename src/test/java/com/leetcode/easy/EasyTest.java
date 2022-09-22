@@ -19,8 +19,8 @@ public class EasyTest {
 
     @Test
     public void addTwoNumbers() {
-        int[] l1 = new int[] { };
-        int[] l2 = new int[] { 0,1};
+        int[] l1 = new int[] {};
+        int[] l2 = new int[] { 0, 1 };
         ListNode l1DummyHead = new ListNode();
         ListNode currL1 = l1DummyHead;
         for (int i = 0; i < l1.length; i++) {
@@ -35,21 +35,28 @@ public class EasyTest {
         }
         System.out.println(l1DummyHead.next);
         System.out.println(l2DummyHead.next);
-        ListNode l3 = AddTwoNumbers.addTwoNumbers(l1DummyHead.next,l2DummyHead.next);
+        ListNode l3 = AddTwoNumbers.addTwoNumbers(l1DummyHead.next, l2DummyHead.next);
         System.out.println(l3);
     }
 
     @Test
-    public void testLongestLenthSubString(){
+    public void testLongestLenthSubString() {
         int lengthOfLongestSubstring = LengthOfLongestSubstring.lengthOfLongestSubstring("abaab!bb");
         System.out.println(lengthOfLongestSubstring);
     }
 
     @Test
-    public void testMadianOfTwoSortedArray(){
-        int[] nums1 = new int[]{1,2};
-        int[] nums2 = new int[]{3,4};
+    public void testMadianOfTwoSortedArray() {
+        int[] nums1 = new int[] { 1, 2 };
+        int[] nums2 = new int[] { 3, 4 };
         double medianOfTwoSortedArray = MedianTwoSortedArray.medianOfTwoSortedArray(nums1, nums2);
         System.out.println(medianOfTwoSortedArray);
     }
+
+    @Test
+    public void testLongestPalindromeSubString() {
+        String lps = LongestPalindromeSubString.lpsExtendAroundPossibleCenter("qvqwawq");
+        System.out.println(lps);
+    }
+
 }
