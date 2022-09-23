@@ -5,9 +5,10 @@ public class LongestPalindromeSubString {
     public static String lpsExtendAroundPossibleCenter(String s) {
         String lps = "";
         int length = s.length();
+        char[] charArray = s.toCharArray();
         for (int i = 0; i < length; i++) {
-            String oddLps = extendAroundCenterLength(s, i, i);
-            String evenLps = extendAroundCenterLength(s, i, i + 1);
+            String oddLps = extendAroundCenterLength(s, i, i, charArray);
+            String evenLps = extendAroundCenterLength(s, i, i + 1, charArray);
             String tmpLps = oddLps.length() > evenLps.length() ? oddLps : evenLps;
             if (tmpLps.length() > lps.length()) {
                 lps = tmpLps;
@@ -16,10 +17,10 @@ public class LongestPalindromeSubString {
         return lps;
     }
 
-    public static String extendAroundCenterLength(String s, Integer start, Integer end) {
+    public static String extendAroundCenterLength(String s, Integer start, Integer end, char[] charArray) {
         int left = start;
         int right = end;
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+        while (left >= 0 && right < charArray.length && charArray[left] == charArray[right]) {
             left--;
             right++;
         }
