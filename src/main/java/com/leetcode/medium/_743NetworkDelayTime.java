@@ -7,7 +7,7 @@ public class _743NetworkDelayTime {
 
     public static void main(String[] args) {
         int[][] times = {{2,1,1},{2,3,1},{3,4,1}};
-        int result = networkDelayTimeAdjList(times,4,2);
+        int result = networkDelayTimeWithPQ(times,4,2);
         System.out.println(result);
 
     }
@@ -94,6 +94,60 @@ public class _743NetworkDelayTime {
                 int adjDistance = distance[miniV] + matrix[miniV][j];
                 if(!visited[j] && adjDistance < distance[j]){
                     distance[j] = adjDistance;
+                }
+            }
+        }
+
+        int result = -1;
+        for(int i = 0;i < n;i++){
+            if(distance[i] == INF){
+                return -1;
+            }
+            if(result < distance[i]) {
+               result = distance[i];
+            }
+        }
+        return result;
+
+    }
+
+
+    public static int networkDelayTimeWithPQ(int[][] times, int n, int k) {
+
+        // init adjacency matrix
+        int INF = 0x3f3f3f3f; // INF representation
+        int[][] matrix = new int[n][n];
+        for(int[] fillMatrix:matrix){
+            Arrays.fill(fillMatrix,INF);
+        }
+        for(int[] time:times){
+            int u = time[0];
+            int v = time[1];
+            int w = time[2];
+            matrix[u-1][v-1] = w;
+        }
+
+        int[] distance = new int[n];
+        Arrays.fill(distance,INF);
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(n,new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                    return o1[1] - o2[1];
+            }
+        });
+
+        distance[k-1] = 0;
+        pq.add(new int[]{k-1,0});
+
+        while (!pq.isEmpty()){
+            int[] node = pq.poll();
+            int miniV = node[0];
+            int miniDistance = node[1];
+            for(int j = 0;j < n;j ++) {
+                int adjDistance = miniDistance + matrix[miniV][j];
+                if(adjDistance < distance[j]){
+                    distance[j] = adjDistance;
+                    pq.add(new int[]{j,adjDistance});
                 }
             }
         }
