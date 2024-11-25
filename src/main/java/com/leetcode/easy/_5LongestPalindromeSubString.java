@@ -1,6 +1,6 @@
 package com.leetcode.easy;
 
-public class LongestPalindromeSubString {
+public class _5LongestPalindromeSubString {
 
     public static String lpsExtendAroundPossibleCenter(String s) {
         String lps = "";

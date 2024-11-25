@@ -35,13 +35,13 @@ public class EasyTest {
         }
         System.out.println(l1DummyHead.next);
         System.out.println(l2DummyHead.next);
-        ListNode l3 = AddTwoNumbers.addTwoNumbers(l1DummyHead.next, l2DummyHead.next);
+        ListNode l3 = _2AddTwoNumbers.addTwoNumbers(l1DummyHead.next, l2DummyHead.next);
         System.out.println(l3);
     }
 
     @Test
     public void testLongestLenthSubString() {
-        int lengthOfLongestSubstring = LengthOfLongestSubstring.lengthOfLongestSubstring("abaab!bb");
+        int lengthOfLongestSubstring = _3LengthOfLongestSubstring.lengthOfLongestSubstring("abaab!bb");
         System.out.println(lengthOfLongestSubstring);
     }
 
@@ -49,13 +49,13 @@ public class EasyTest {
     public void testMadianOfTwoSortedArray() {
         int[] nums1 = new int[] { 1, 2 };
         int[] nums2 = new int[] { 3, 4 };
-        double medianOfTwoSortedArray = MedianTwoSortedArray.medianOfTwoSortedArray(nums1, nums2);
+        double medianOfTwoSortedArray = _4MedianTwoSortedArray.medianOfTwoSortedArray(nums1, nums2);
         System.out.println(medianOfTwoSortedArray);
     }
 
     @Test
     public void testLongestPalindromeSubString() {
-        String lps = LongestPalindromeSubString.lpsExtendAroundPossibleCenter("qvqwawq");
+        String lps = _5LongestPalindromeSubString.lpsExtendAroundPossibleCenter("qvqwawq");
         System.out.println(lps);
     }
 

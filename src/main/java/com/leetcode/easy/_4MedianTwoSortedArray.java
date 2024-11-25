@@ -1,6 +1,6 @@
 package com.leetcode.easy;
 
-public class MedianTwoSortedArray {
+public class _4MedianTwoSortedArray {
     public static double medianOfTwoSortedArray(int[] nums1, int[] nums2) {
         int nums1Length = nums1.length;
         int nums2Length = nums2.length;
