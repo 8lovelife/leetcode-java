@@ -5,11 +5,12 @@ import java.util.Arrays;
 public class _685RedundantConnection2 {
 
     public static void main(String[] args) {
-        int[][] edges = new int[][]{{2,1},{3,1},{4,3},{1,4}};
+        int[][] edges = new int[][] { { 2, 1 }, { 3, 1 }, { 4, 3 }, { 1, 4 } };
         int[] result = new _685RedundantConnection2().findRedundantConnection(edges);
         System.out.println(Arrays.toString(result));
 
     }
+
     // AC: runtime 96.65% mem 88.66%
     public int[] findRedundantConnection(int[][] edges) {
         int n = edges.length;
@@ -42,6 +43,7 @@ public class _685RedundantConnection2 {
 
         if (leadTwoRoots.length == 0) {
             return leadCycle;
+
         }
 
         if (leadCycle.length == 0) {
@@ -49,9 +51,9 @@ public class _685RedundantConnection2 {
         }
 
         int midNode = leadTwoRoots[1];
-        return new int[]{roots[midNode],midNode};
+        return new int[] { roots[midNode], midNode };
 
-}
+    }
 
 class DisjointSet {
     private int[] parent;

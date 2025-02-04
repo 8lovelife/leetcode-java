@@ -6,8 +6,7 @@ import java.util.List;
 public class _684RedundantConnection {
 
     public static void main(String[] args) {
-        int[][] edges = new int[][] {{1,2},{1,3},{2,3}};
-
+        int[][] edges = new int[][] { { 1, 2 }, { 1, 3 }, { 2, 3 } };
         new _684RedundantConnection().findRedundantConnectionDFS(edges);
     }
 
@@ -22,7 +21,7 @@ public class _684RedundantConnection {
         for (int[] edge : edges) {
             int u = edge[0];
             int v = edge[1];
-            if (hasPath(u,v,visited,graph)) {
+            if (hasPath(u, v, visited, graph)) {
                 return edge;
             }
             graph[u].add(v);
@@ -31,7 +30,7 @@ public class _684RedundantConnection {
         return new int[0];
     }
 
-    public boolean hasPath(int u,int v, boolean[] visited,List<Integer>[] graph) {
+    public boolean hasPath(int u, int v, boolean[] visited, List<Integer>[] graph) {
         if (u == v) {
             return true;
         }
@@ -43,10 +42,10 @@ public class _684RedundantConnection {
         for (int neighbor : graph[u]) {
             // a little optimization
             // if (graph[u].isEmpty() || graph[v].isEmpty()) {
-            //     continue;
+            // continue;
             // }
 
-            if(hasPath(neighbor, v, visited, graph)){
+            if (hasPath(neighbor, v, visited, graph)) {
                 return true;
             }
         }
@@ -71,6 +70,7 @@ public class _684RedundantConnection {
 class UnionFind {
 
     private int[] parent;
+
     UnionFind(int n) {
         parent = new int[n + 1];
         for (int i = 1; i < parent.length; i++) {
@@ -85,7 +85,7 @@ class UnionFind {
         return find(parent[a]);
     }
 
-    public int findWithPathCompression(int a){
+    public int findWithPathCompression(int a) {
         if (parent[a] == a) {
             return a;
         } else {
@@ -94,7 +94,7 @@ class UnionFind {
         }
     }
 
-    public void union(int a, int b){
+    public void union(int a, int b) {
         int rootA = findWithPathCompression(a);
         int rootB = findWithPathCompression(b);
         if (rootA != rootB) {
@@ -102,7 +102,7 @@ class UnionFind {
         }
     }
 
-    public Boolean isConnected(int a,int b){
+    public Boolean isConnected(int a, int b) {
         return findWithPathCompression(a) == findWithPathCompression(b);
     }
 }
