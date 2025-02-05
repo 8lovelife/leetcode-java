@@ -54,6 +54,7 @@ public class _685RedundantConnection2 {
         return new int[] { roots[midNode], midNode };
 
     }
+}
 
 class DisjointSet {
     private int[] parent;
@@ -68,20 +69,20 @@ class DisjointSet {
     int findRoot(int v) {
         if (parent[v] == v) {
             return v;
-        } 
+        }
         parent[v] = findRoot(parent[v]);
         return parent[v];
     }
 
-    void union(int u,int v){
+    void union(int u, int v) {
         int uRoot = findRoot(u);
         int vRoot = findRoot(v);
-        if (vRoot!=uRoot) {
+        if (vRoot != uRoot) {
             parent[uRoot] = vRoot;
         }
     }
 
-    boolean isConnected(int u,int v){
+    boolean isConnected(int u, int v) {
         return findRoot(u) == findRoot(v);
     }
 
