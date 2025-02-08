@@ -203,27 +203,30 @@ public class _685RedundantConnection2 {
 }
 
 class DisjointSet {
-    private int[] parent;
+    private int[] parents;
+    private int[] ranks;
 
     DisjointSet(int n) {
-        parent = new int[n];
+        parents = new int[n];
+        ranks = new int[n];
         for (int i = 0; i < n; i++) {
-            parent[i] = i;
+            parents[i] = i;
+            ranks[i] = 1;
         }
     }
 
     int findRoot(int v) {
-        if (parent[v] == v) {
+        if (parents[v] == v) {
             return v;
         }
-        parent[v] = findRoot(parent[v]); // path compression (fully flattened in a single call)
-        return parent[v];
+        parents[v] = findRoot(parents[v]); // path compression (fully flattened in a single call)
+        return parents[v];
     }
 
     int findRootWhile(int v) {
-        while (parent[v] != v) {
-            parent[v] = parent[parent[v]]; // path compression (jumps one level in a single call)
-            v = parent[v];
+        while (parents[v] != v) {
+            parents[v] = parents[parents[v]]; // path compression (jumps one level in a single call)
+            v = parents[v];
         }
         return v;
     }
@@ -232,7 +235,14 @@ class DisjointSet {
         int uRoot = findRoot(u);
         int vRoot = findRoot(v);
         if (vRoot != uRoot) {
-            parent[uRoot] = vRoot;
+            if (ranks[uRoot] > ranks[vRoot]) {
+                parents[vRoot] = uRoot;
+            } else if (ranks[uRoot] < ranks[vRoot]) {
+                parents[uRoot] = vRoot;
+            } else {
+                parents[vRoot] = uRoot;
+                ranks[uRoot]++;
+            }
         }
     }
 
