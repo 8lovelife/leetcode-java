@@ -8,8 +8,89 @@ public class _685RedundantConnection2 {
 
     public static void main(String[] args) {
         int[][] edges = new int[][] { { 1, 2 }, { 2, 3 }, { 3, 4 }, { 4, 1 }, { 1, 5 } };
-        int[] result = new _685RedundantConnection2().findRedundantConnectionPostDFS(edges);
+        int[] result = new _685RedundantConnection2().findRedundantConnectionParentInspect(edges);
         System.out.println(Arrays.toString(result));
+    }
+
+    public int[] findRedundantConnectionPostParentInspect(int[][] edges) {
+        int n = edges.length;
+        int[] parents = new int[n + 1];
+        int[] leadTwoRoots = new int[0];
+        int[] leadCycle = new int[0];
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            if (parents[v] != 0) {
+                leadTwoRoots = edges[i];
+                continue;
+            }
+            parents[v] = u;
+        }
+        Arrays.fill(parents, 0);
+        for (int[] edge : edges) {
+            int v = edge[1];
+            int u = edge[0];
+            if (parents[v] == 0) {
+                parents[v] = u;
+            }
+            if (hasCycle(v, parents)) {
+                leadCycle = edge;
+                break;
+            }
+        }
+
+        if (leadTwoRoots.length == 0) {
+            return leadCycle;
+        }
+
+        if (leadCycle.length == 0) {
+            return leadTwoRoots;
+        }
+
+        int v = leadTwoRoots[1];
+        return new int[] { parents[v], v };
+    }
+
+    private boolean hasCycle(int v, int[] parents) {
+        int pre = parents[v];
+        while (pre != 0) {
+            if (pre == v) {
+                return true;
+            }
+            pre = parents[pre];
+        }
+        return false;
+    }
+
+    public int[] findRedundantConnectionParentInspect(int[][] edges) {
+        int n = edges.length;
+        int[] parents = new int[n + 1];
+        int[] leadTwoRoots = new int[0];
+        int[] leadCycle = new int[0];
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            if (parents[v] != 0) {
+                leadTwoRoots = edges[i];
+                continue;
+            }
+            parents[v] = u;
+
+            if (leadCycle.length == 0 && hasCycle(v, parents)) {
+                leadCycle = edges[i];
+            }
+        }
+
+        if (leadTwoRoots.length == 0) {
+            return leadCycle;
+        }
+
+        if (leadCycle.length == 0) {
+            return leadTwoRoots;
+        }
+
+        int v = leadTwoRoots[1];
+        return new int[] { parents[v], v };
     }
 
     // inspect cycle in graph with DFS
@@ -58,7 +139,7 @@ public class _685RedundantConnection2 {
         return new int[] { roots[midNode], midNode };
     }
 
-    // visited: 1. none visit 2. visiting 3. visited
+    // visited value: 0. none visit 1. visiting 2. visited
     private boolean hasCycle(int currentNode, int[] visit, List<Integer>[] graph) {
         if (visit[currentNode] == 1) {
             return true;
@@ -135,8 +216,16 @@ class DisjointSet {
         if (parent[v] == v) {
             return v;
         }
-        parent[v] = findRoot(parent[v]);
+        parent[v] = findRoot(parent[v]); // path compression (fully flattened in a single call)
         return parent[v];
+    }
+
+    int findRootWhile(int v) {
+        while (parent[v] != v) {
+            parent[v] = parent[parent[v]]; // path compression (jumps one level in a single call)
+            v = parent[v];
+        }
+        return v;
     }
 
     void union(int u, int v) {
