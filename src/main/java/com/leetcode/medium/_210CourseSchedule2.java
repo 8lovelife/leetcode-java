@@ -8,9 +8,80 @@ import java.util.Queue;
 
 public class _210CourseSchedule2 {
 
+    public int[] topSortDFS(int numCourses, int[][] prerequisites) {
+        List<Integer>[] graph = new List[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge : prerequisites) {
+            graph[edge[0]].add(edge[1]);
+        }
+        List<Integer> result = new ArrayList<>();
+        int[] visit = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (hasCycle(i, visit, graph, result)) {
+                return new int[0];
+            }
+        }
+        if (result.size() != numCourses) {
+            return new int[0];
+        }
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    private boolean hasCycle(int v, int[] visit, List<Integer>[] graph, List<Integer> result) {
+        if (visit[v] == 1) {
+            return true;
+        }
+        if (visit[v] == 2) {
+            return false;
+        }
+        visit[v] = 1;
+        for (int neighbor : graph[v]) {
+            if (hasCycle(neighbor, visit, graph, result)) {
+                return true;
+            }
+        }
+        visit[v] = 2;
+        result.add(v);
+        return false;
+    }
+
+    public int[] topSortKahnAlgorithm(int numCourses, int[][] prerequisites) {
+        List<Integer>[] graph = new List[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        int[] indegree = new int[numCourses];
+        for (int[] edge : prerequisites) {
+            graph[edge[1]].add(edge[0]);
+            indegree[edge[0]]++;
+        }
+        List<Integer> topList = new ArrayList<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < indegree.length; i++) {
+            if (indegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+        while (!queue.isEmpty()) {
+            int v = queue.poll();
+            topList.add(v);
+            for (int neighbor : graph[v]) {
+                indegree[neighbor]--;
+                if (indegree[neighbor] == 0) {
+                    queue.add(neighbor);
+                }
+            }
+        }
+        if (topList.size() != numCourses) {
+            return new int[0];
+        }
+        return topList.stream().mapToInt(Integer::intValue).toArray();
+    }
 
     // AC runtime: 5.10% mem: 5.75%
-    public int[] findOrderKahnMatrix(int numCourses,int[][] prerequisites){
+    public int[] findOrderKahnMatrix(int numCourses, int[][] prerequisites) {
         int[][] graph = new int[numCourses][numCourses];
         for (int[] is : graph) {
             Arrays.fill(is, -1);
@@ -18,7 +89,7 @@ public class _210CourseSchedule2 {
         int[] indegree = new int[numCourses];
         for (int[] pre : prerequisites) {
             graph[pre[1]][pre[0]] = 1;
-            indegree[pre[0]] +=1;
+            indegree[pre[0]] += 1;
         }
         Queue<Integer> q = new ArrayDeque<>(numCourses);
         for (int i = 0; i < indegree.length; i++) {
@@ -35,7 +106,7 @@ public class _210CourseSchedule2 {
                 if (val == -1) {
                     continue;
                 }
-                indegree[i] -=1;
+                indegree[i] -= 1;
                 if (indegree[i] == 0) {
                     q.add(i);
                 }
@@ -49,7 +120,7 @@ public class _210CourseSchedule2 {
 
     // Kahn'algorithm with adjList
     // AC runtime: 54.71% mem: 81.32%
-    public int[] findOrderKahn(int numCourses,int[][] prerequisites){
+    public int[] findOrderKahn(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
         for (int i = 0; i < numCourses; i++) {
             graph[i] = new ArrayList<>();
@@ -85,9 +156,10 @@ public class _210CourseSchedule2 {
 
         return new int[0];
     }
+
     // DFS
     // AC runtime: 91.96% mem: 64.76%
-    public int[] findOrder(int numCourses,int[][] prerequisites){
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
         List<Integer>[] graph = new List[numCourses];
         for (int i = 0; i < numCourses; i++) {
             graph[i] = new ArrayList<>();
@@ -100,7 +172,7 @@ public class _210CourseSchedule2 {
         boolean[] gloableVisited = new boolean[numCourses];
         boolean[] localVisited = new boolean[numCourses];
         for (int i = 0; i < numCourses; i++) {
-            if (hasCycle(i,gloableVisited,localVisited,graph,tmpResult)) {
+            if (hasCycle(i, gloableVisited, localVisited, graph, tmpResult)) {
                 return new int[0];
             }
         }
@@ -108,9 +180,9 @@ public class _210CourseSchedule2 {
         return result;
     }
 
-
     // DFS
-    public Boolean hasCycle(int v,boolean[] gloableVisited,boolean[] localVisited,List<Integer>[] graph,List<Integer> tmpResult){
+    public Boolean hasCycle(int v, boolean[] gloableVisited, boolean[] localVisited, List<Integer>[] graph,
+            List<Integer> tmpResult) {
         if (localVisited[v]) {
             return true;
         }
