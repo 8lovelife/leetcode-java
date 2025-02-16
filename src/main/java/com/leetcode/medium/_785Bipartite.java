@@ -1,16 +1,69 @@
 package com.leetcode.medium;
 
+import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class _785Bipartite {
 
+    public Boolean isBipartiteOddCycleDetectioinBFS(int[][] graph) {
+        int n = graph.length;
+        int[] vStatus = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (vStatus[i] != 0) {
+                continue;
+            }
+            Queue<Integer> q = new ArrayDeque<>(n);
+            q.add(i);
+            vStatus[i] = 1;
+            while (!q.isEmpty()) {
+                int v = q.poll();
+                for (Integer neighbor : graph[v]) {
+                    if (vStatus[neighbor] == 0) {
+                        q.add(neighbor);
+                        vStatus[neighbor] = -vStatus[v];
+                    } else if (vStatus[neighbor] == vStatus[v]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
-    public Boolean isBipartiteBFS(int[][] graph){
+    public Boolean isBipartiteOddCycleDetectionDFS(int[][] graph) {
+        int n = graph.length;
+        int[] vStatus = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (vStatus[i] != 0) {
+                continue;
+            }
+            if (oddCycle(i, 1, vStatus, graph)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Boolean oddCycle(int node, int currentNodeColor, int[] vStatus, int[][] graph) {
+        vStatus[node] = currentNodeColor;
+        for (int neighbor : graph[node]) {
+            if (vStatus[neighbor] == 0) {
+                if (oddCycle(neighbor, -currentNodeColor, vStatus, graph)) {
+                    return true;
+                }
+            } else if (vStatus[neighbor] == vStatus[node]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean isBipartiteBFS(int[][] graph) {
         int n = graph.length;
         int[] vState = new int[n];
         for (int i = 0; i < n; i++) {
-            if (vState[i]!=0) {
+            if (vState[i] != 0) {
                 continue;
             }
             Queue<Integer> pq = new PriorityQueue<>();
@@ -22,7 +75,7 @@ public class _785Bipartite {
                     if (vState[neighbor] == 0) {
                         vState[neighbor] = -vState[node];
                         pq.add(neighbor);
-                    } else if (vState[neighbor] == vState[node] ) {
+                    } else if (vState[neighbor] == vState[node]) {
                         return false;
                     }
                 }
@@ -30,7 +83,6 @@ public class _785Bipartite {
         }
         return true;
     }
-
 
     public boolean isBipartite(int[][] graph) {
         int n = graph.length;
@@ -58,7 +110,6 @@ public class _785Bipartite {
                 return true;
             }
         }
-
         return false;
     }
 
