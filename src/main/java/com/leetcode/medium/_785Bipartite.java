@@ -1,10 +1,54 @@
 package com.leetcode.medium;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+class DisjointSet {
+    int[] parents;
+
+    DisjointSet(int n) {
+        parents = new int[n];
+        for (int i = 0; i < n; i++) {
+            parents[i] = i;
+        }
+    }
+
+    int findRoot(int u) {
+        if (parents[u] == u) {
+            return u;
+        }
+        parents[u] = findRoot(parents[u]);
+        return parents[u];
+    }
+
+    int union(int u, int v) {
+        int uRoot = findRoot(u);
+        int vRoot = findRoot(v);
+        if (uRoot != vRoot) {
+            parents[uRoot] = vRoot;
+        }
+        return vRoot;
+    }
+}
+
 public class _785Bipartite {
+
+    public boolean isBipartiteDisjointSet(int[][] graph) {
+        int n = graph.length;
+        DisjointSet disjointSet = new DisjointSet(n);
+        for (int i = 0; i < n; i++) {
+            if (graph[i].length == 0) {
+                continue;
+            }
+            int adjacentRoot = Arrays.stream(graph[i]).reduce((u, v) -> disjointSet.union(u, v)).getAsInt();
+            if (disjointSet.findRoot(i) == adjacentRoot) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public Boolean isBipartiteOddCycleDetectioinBFS(int[][] graph) {
         int n = graph.length;
