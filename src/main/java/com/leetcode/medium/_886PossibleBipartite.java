@@ -5,25 +5,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-class DisjointSet {
+class UnionFind {
     int[] parents;
 
-    DisjointSet(int n) {
+    UnionFind(int n) {
         parents = new int[n];
         for (int i = 0; i < n; i++) {
             parents[i] = i;
         }
     }
 
-    void union(int u, int v) {
+    int union(int u, int v) {
+        int uRoot = findRoot(u);
+        int vRoot = findRoot(v);
+        if (uRoot != vRoot) {
+            parents[uRoot] = vRoot;
+        }
+        return vRoot;
+    }
 
+    int findRoot(int node) {
+        if (parents[node] == node) {
+            return node;
+        }
+        parents[node] = findRoot(parents[node]);
+        return parents[node];
+    }
+
+    boolean isConnected(int u, int v) {
+        return findRoot(u) == findRoot(v);
     }
 }
 
 public class _886PossibleBipartite {
 
-    public boolean possibleBipartition(int n, int[][] dislikes) {
-
+    public boolean possibleBipartitionUnion(int n, int[][] dislikes) {
+        List<Integer>[] graph = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] dislike : dislikes) {
+            int u = dislike[0];
+            int v = dislike[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+        UnionFind disjointSet = new UnionFind(n + 1);
+        for (int i = 1; i <= n; i++) {
+            if (graph[i].size() == 0) {
+                continue;
+            }
+            Integer adjacentRoot = graph[i].stream().reduce((u, v) -> disjointSet.union(u, v)).get();
+            if (disjointSet.isConnected(i, adjacentRoot)) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -61,7 +97,7 @@ public class _886PossibleBipartite {
         return true;
     }
 
-    public boolean possibleBipartition(int n, int[][] dislikes) {
+    public boolean possibleBipartitionDFS(int n, int[][] dislikes) {
         List<Integer>[] graph = new List[n + 1];
         for (int i = 1; i <= n; i++) {
             graph[i] = new ArrayList<>();
