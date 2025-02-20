@@ -4,34 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import com.leetcode.DisjointSet;
 
-class DisjointSet {
-    int[] parents;
-
-    DisjointSet(int n) {
-        parents = new int[n];
-        for (int i = 0; i < n; i++) {
-            parents[i] = i;
-        }
-    }
-
-    int findRoot(int u) {
-        if (parents[u] == u) {
-            return u;
-        }
-        parents[u] = findRoot(parents[u]);
-        return parents[u];
-    }
-
-    int union(int u, int v) {
-        int uRoot = findRoot(u);
-        int vRoot = findRoot(v);
-        if (uRoot != vRoot) {
-            parents[uRoot] = vRoot;
-        }
-        return vRoot;
-    }
-}
 
 public class _785Bipartite {
 

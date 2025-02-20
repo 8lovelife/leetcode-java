@@ -3,6 +3,7 @@ package com.leetcode.medium;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.leetcode.DisjointSet;
 
 public class _684RedundantConnection {
 
@@ -96,87 +97,5 @@ public class _684RedundantConnection {
             unionFind.union(edge[0], edge[1]);
         }
         return new int[0];
-    }
-}
-
-class DisjointSet {
-    private int[] parents;
-    private int[] ranks;
-
-    DisjointSet(int n) {
-        parents = new int[n];
-        ranks = new int[n];
-        for (int i = 0; i < n; i++) {
-            parents[i] = i;
-            ranks[i] = 1;
-        }
-    }
-
-    int findRoot(int v) {
-        if (parents[v] == v) {
-            return v;
-        }
-        parents[v] = findRoot(parents[v]);
-        return parents[v];
-    }
-
-    boolean isConnected(int u, int v) {
-        return findRoot(u) == findRoot(v);
-    }
-
-    void union(int u, int v) {
-        int uRoot = findRoot(u);
-        int vRoot = findRoot(v);
-        if (uRoot != vRoot) {
-            if (ranks[uRoot] > ranks[vRoot]) {
-                parents[vRoot] = uRoot;
-            } else if (ranks[uRoot] < ranks[vRoot]) {
-                parents[uRoot] = vRoot;
-            } else {
-                parents[vRoot] = uRoot;
-                ranks[uRoot]++;
-            }
-        }
-    }
-}
-
-class UnionFind {
-
-    private int[] parents;
-    private int[] ranks;
-
-    UnionFind(int n) {
-        parents = new int[n + 1];
-        for (int i = 1; i < parents.length; i++) {
-            parents[i] = i;
-        }
-    }
-
-    public int find(int a) {
-        if (parents[a] == a) {
-            return a;
-        }
-        return find(parents[a]);
-    }
-
-    public int findWithPathCompression(int a) {
-        if (parents[a] == a) {
-            return a;
-        } else {
-            parents[a] = findWithPathCompression(parents[a]);
-            return parents[a];
-        }
-    }
-
-    public void union(int a, int b) {
-        int rootA = findWithPathCompression(a);
-        int rootB = findWithPathCompression(b);
-        if (rootA != rootB) {
-            parents[rootA] = rootB;
-        }
-    }
-
-    public Boolean isConnected(int a, int b) {
-        return findWithPathCompression(a) == findWithPathCompression(b);
     }
 }
