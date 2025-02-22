@@ -13,5 +13,12 @@ public class HardTest {
         int diameter = new _2493DivideNodesIntoMaxGroups().magnificentSets2BFS(6, edges);
         Assert.assertTrue(diameter == 6);
     }
+
+    @Test
+    public void _2608() {
+        int[][] edges = new int[][] { { 0,1 },{1,2},{2,5},{3,5},{4,5},{3,4},{0,5} };
+        int shortestCycle = new _2608ShortestCycle().findShortestCycle(6, edges);
+        Assert.assertTrue(shortestCycle == 3);
+    }
     
 }

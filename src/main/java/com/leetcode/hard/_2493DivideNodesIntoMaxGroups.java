@@ -78,6 +78,30 @@ public class _2493DivideNodesIntoMaxGroups {
         return levels;
     }
 
+    public int longestShortestPathWhileCheckingBipartite(int node, List<Integer>[] graph){
+        int levels = 0;
+        int[] vStatus = new int[graph.length];
+        Queue<Integer> q = new ArrayDeque<>();
+        q.offer(node);
+        vStatus[node] = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int j = 0; j < size; j++) {
+                int levelNode = q.poll();
+                for (Integer neighbor : graph[levelNode]) {
+                    if (vStatus[neighbor] == 0) {
+                        q.add(neighbor);
+                        vStatus[neighbor] = -vStatus[levelNode];
+                    } else if(vStatus[neighbor] == vStatus[levelNode]){
+                        return -1;
+                    }
+                }
+            }
+            levels++;
+        }
+        return levels;
+    }
+
     public int diameter(List<Integer> groupSets, List<Integer>[] graph){
         int diameter = 0;
         for (int i = 1; i < groupSets.size(); i++) {
@@ -85,24 +109,6 @@ public class _2493DivideNodesIntoMaxGroups {
             diameter = Math.max(diameter, diameterOfNode);
         }
         return diameter;
-    }
-
-
-    public int longestShortestPath(int node, int color,int distance, int[] vStatus, List<Integer>[] graph){
-        vStatus[node] = color;
-        int longestShortestPath = distance;
-        for(Integer neighbor : graph[node]){
-            if(vStatus[neighbor] == 0){
-                int result = longestShortestPath(neighbor,-color,longestShortestPath + 1,vStatus,graph);
-                if(result == -1){
-                    return -1;
-                }
-                longestShortestPath = Math.max(longestShortestPath,result);
-            }  else if(vStatus[neighbor] == vStatus[node]){
-                return -1;
-            }
-        }
-        return longestShortestPath;
     }
 
     public int magnificentSets2BFS(int n, int[][] edges) {
@@ -154,7 +160,7 @@ public class _2493DivideNodesIntoMaxGroups {
     }
 
     
-    public int magnificentSetsUnionFindBFS(int n, int[][] edges) {
+    public int magnificentSetsBFSUnionFind(int n, int[][] edges) {
         List<Integer>[] graph = new List[n + 1];
         for (int i = 1; i <= n; i++) {
             graph[i] = new ArrayList<>();
@@ -179,12 +185,10 @@ public class _2493DivideNodesIntoMaxGroups {
             q.offer(i);
             vStatus[i] = 1;
             int longestShorestPath = 0;
-            List<Integer> groupSets = new ArrayList<>();
             while (!q.isEmpty()) {
                 int size = q.size();
                 for (int j = 0; j < size; j++) {
                     int levelNode = q.poll();
-                    groupSets.add(levelNode);
                     for (Integer neighbor : graph[levelNode]) {
                         if (vStatus[neighbor] == 0) {
                             q.offer(neighbor);
@@ -201,5 +205,64 @@ public class _2493DivideNodesIntoMaxGroups {
         }
         return Arrays.stream(diameterOfSets).sum();
 }
+
+    public int magnificentSetsDFSBFS(int n, int[][] edges) {
+        List<Integer>[] graph = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+
+        int[] nodeLongestShorestPath = new int[n + 1];
+        for(int i = 1; i <= n; i++){
+            int levels = 0;
+            int[] vStatus = new int[graph.length];
+            Queue<Integer> q = new ArrayDeque<>();
+            q.offer(i);
+            vStatus[i] = 1;
+            while (!q.isEmpty()) {
+                int size = q.size();
+                for (int j = 0; j < size; j++) {
+                    int levelNode = q.poll();
+                    for (Integer neighbor : graph[levelNode]) {
+                        if (vStatus[neighbor] == 0) {
+                            q.add(neighbor);
+                            vStatus[neighbor] = -vStatus[levelNode];
+                        } else if(vStatus[neighbor] == vStatus[levelNode]){
+                            return -1;
+                        }
+                    }
+                }
+                levels++;
+            }
+            nodeLongestShorestPath[i] = levels;
+        }
+
+        int totalGroups = 0;
+        boolean[] visited = new boolean[n + 1];
+        for(int i = 1; i <= n; i++){
+            if(visited[i]) continue;
+            totalGroups += diameter(i,visited,nodeLongestShorestPath,graph);
+        }
+        return totalGroups;
+    }
+
+    public int diameter(int node, boolean[] visited,int[] nodeLongestShorestPath,List<Integer>[] graph){
+        int diameter = nodeLongestShorestPath[node];
+        visited[node] = true;
+        for(int neighbor : graph[node]){
+            if(visited[neighbor]){
+                continue;
+            }
+           diameter = Math.max(diameter,diameter(neighbor,visited,nodeLongestShorestPath,graph));
+        }
+        return diameter;
+    }
 
 }
