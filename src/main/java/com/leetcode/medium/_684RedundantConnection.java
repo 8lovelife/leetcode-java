@@ -1,9 +1,11 @@
 package com.leetcode.medium;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.leetcode.DisjointSet;
+import java.util.Queue;
 
 public class _684RedundantConnection {
 
@@ -33,6 +35,50 @@ public class _684RedundantConnection {
         return new int[0];
     }
 
+    public int[] findRedundantConnectionPostBFS(int[][] edges) {
+        int n = edges.length;
+        List<Integer>[] graph = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+            System.out.println("iterate "+Arrays.toString(edge));
+            if (hasCycleBFS(u, graph)) {
+                System.out.println("cycle ??"+Arrays.toString(edge));
+                return edge;
+            }
+        }
+        return new int[0];
+    }
+
+    private boolean hasCycleBFS(int node, List<Integer>[] graph){
+        boolean[] visited = new boolean[graph.length];
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[]{node,-1});
+        visited[node] = true;
+        while(!q.isEmpty()){
+            int size = q.size();
+            while(size-- > 0){
+                int[] cur = q.poll();
+                int curNode = cur[0];
+                int curParent = cur[1];
+                for(int neighbor: graph[curNode]){
+                    if(!visited[neighbor]){
+                        q.offer(new int[]{neighbor,curNode});
+                        visited[neighbor] = true;
+                    } else if (neighbor != curParent){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean hasCycle(int u, int v, boolean[] visited, List<Integer>[] graph) {
         if (visited[v]) {
             return true;
@@ -44,6 +90,45 @@ public class _684RedundantConnection {
             }
             if (hasCycle(v, neighbor, visited, graph)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+
+    public int[] findRedundantConnectionBFS(int[][] edges) {
+        int n = edges.length;
+        List<Integer>[] graph = new List[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if (hasPathBFS(u, v, graph)) {
+                return edge;
+            }
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+        return new int[0];
+    }
+
+    public boolean hasPathBFS(int u, int v, List<Integer>[] graph){
+        boolean[] visited = new boolean[graph.length];
+        Queue<Integer> q = new ArrayDeque<>();
+        q.offer(u);
+        while(!q.isEmpty()){
+            int size = q.size();
+            while(size-- > 0){
+                int node = q.poll();
+                if(node == v) return true;
+                for(int neighbor: graph[node]){
+                    if(!visited[neighbor]){
+                        q.offer(neighbor);
+                        visited[neighbor] = true;
+                    }
+                }
             }
         }
         return false;

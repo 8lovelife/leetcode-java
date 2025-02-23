@@ -8,7 +8,23 @@ import java.util.Queue;
 
 public class _2608ShortestCycle {
 
-  public int findShortestCycle(int n, int[][] edges) {
+
+public int findShortestCycle(int n, int[][] edges) {
+    List<Integer>[] graph = new List[n];
+    for(int i = 0; i < n; i++){
+        graph[i] = new ArrayList<>();
+    }
+    for(int[] edge: edges){
+        int u = edge[0];
+        int v = edge[1];
+
+        
+    }
+      
+    return -1;
+}
+
+  public int findShortestCycleBFS(int n, int[][] edges) {
     List<Integer>[] graph = new List[n];
     for (int i = 0; i < n; i++) {
         graph[i] = new ArrayList<>();
