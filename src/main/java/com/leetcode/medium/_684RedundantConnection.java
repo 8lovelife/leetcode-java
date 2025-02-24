@@ -46,9 +46,7 @@ public class _684RedundantConnection {
             int v = edge[1];
             graph[u].add(v);
             graph[v].add(u);
-            System.out.println("iterate "+Arrays.toString(edge));
             if (hasCycleBFS(u, graph)) {
-                System.out.println("cycle ??"+Arrays.toString(edge));
                 return edge;
             }
         }
@@ -118,6 +116,7 @@ public class _684RedundantConnection {
         boolean[] visited = new boolean[graph.length];
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(u);
+        visited[u] = true;
         while(!q.isEmpty()){
             int size = q.size();
             while(size-- > 0){
