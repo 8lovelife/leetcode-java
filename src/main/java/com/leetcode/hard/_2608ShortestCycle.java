@@ -11,7 +11,7 @@ import java.util.Queue;
 public class _2608ShortestCycle {
 
 
-    public int findShortestCycleDFS(int n, int[][] edges){
+    public int findShortestCyclePathDetectionDFS(int n, int[][] edges){
         List<Integer>[] graph = new List[n];
         for(int i = 0; i < n; i++){
             graph[i] = new ArrayList<>();
@@ -149,6 +149,42 @@ public class _2608ShortestCycle {
     }
     return shortestCycle == Integer.MAX_VALUE ? -1 : shortestCycle;
   }
+
+    public int findShortestCycleDFS(int n, int[][] edges) {
+        List<Integer>[] graph = new List[n];
+        for(int i=0;i < n;i++){
+            graph[i] = new ArrayList<>();
+        }
+        for(int[] edge:edges){
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+        Set<Integer> cyclePaths = new HashSet<>();
+        int[] distance = new int[n];
+        for(int node = 0; node < n; node++){
+            if(distance[node] != 0){
+                continue;
+            }
+            dfs(node,1,distance,cyclePaths,graph);
+        }
+        return cyclePaths.isEmpty()? -1:cyclePaths.stream().min(Integer::compareTo).get();
+    }
+
+    public void dfs(int u,int depth, int[] distance, Set<Integer> cyclePaths,List<Integer>[] graph){
+        distance[u] = depth;
+        for(int neighbor: graph[u]){
+            // an unvisited node or a previously visited node from a different direction
+            if(distance[neighbor] == 0 || distance[neighbor] > distance[u] + 1){
+                dfs(neighbor,depth + 1,distance,cyclePaths,graph);
+            // cause a cycle here
+            // minus 1 to avoid revisiting the parent node    
+            } else if(distance[neighbor] < distance[u] - 1){
+                cyclePaths.add(distance[u] - distance[neighbor] + 1);
+            }
+        }
+    }
 
     public int findShortestCycleBFS(int n, int[][] edges) {
         List<Integer>[] graph = new List[n];
