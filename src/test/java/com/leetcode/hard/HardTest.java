@@ -20,5 +20,12 @@ public class HardTest {
         int shortestCycle = new _2608ShortestCycle().findShortestCycleDFS(6, edges);
         Assert.assertTrue(shortestCycle == 4);
     }
+
+    @Test
+    public void _2360() {
+        int[] edges = new int[] { 1,0 };
+        int shortestCycle = new _2360LongestCycle().longestCycle(edges);
+        Assert.assertTrue(shortestCycle == 2);
+    }
     
 }
