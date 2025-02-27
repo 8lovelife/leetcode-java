@@ -1,12 +1,38 @@
 package com.leetcode.easy;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.leetcode.ListNode;
 
 /**
  * Unit test for simple App.
  */
 public class EasyTest {
+
+    @Test
+    public void _206() {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+        ListNode reversedNode = new _206ReverseLinkedList().reverseStack(head);
+
+        List<Integer> vals = new ArrayList<>();
+        ListNode cur = reversedNode;
+        while (cur != null) {
+            vals.add(cur.val);
+            cur = cur.next;
+        }
+        String result = vals.stream().map(String::valueOf)
+                .collect(Collectors.joining("->"));
+        System.out.println(result);
+    }
 
     @Test
     public void twoSum() {
