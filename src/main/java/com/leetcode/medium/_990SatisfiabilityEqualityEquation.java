@@ -5,7 +5,6 @@ import com.leetcode.DisjointSet;
 public class _990SatisfiabilityEqualityEquation {
 
     public boolean equationsPossible(String[] equations) {
-        int n = equations.length;
         DisjointSet disjointSet = new DisjointSet(26);
         for (String equation : equations) {
             char c = equation.charAt(1);
