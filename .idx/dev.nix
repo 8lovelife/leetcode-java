@@ -26,7 +26,7 @@
     ];
     # Enable previews
     previews = {
-      enable = true;
+      enable = false;
       previews = {
         web = {
           # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
