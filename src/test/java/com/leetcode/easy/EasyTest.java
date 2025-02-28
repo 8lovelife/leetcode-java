@@ -22,16 +22,7 @@ public class EasyTest {
         head.next.next.next = new ListNode(4);
         head.next.next.next.next = new ListNode(5);
         ListNode reversedNode = new _206ReverseLinkedList().reverseStack(head);
-
-        List<Integer> vals = new ArrayList<>();
-        ListNode cur = reversedNode;
-        while (cur != null) {
-            vals.add(cur.val);
-            cur = cur.next;
-        }
-        String result = vals.stream().map(String::valueOf)
-                .collect(Collectors.joining("->"));
-        System.out.println(result);
+        reversedNode.show();
     }
 
     @Test
