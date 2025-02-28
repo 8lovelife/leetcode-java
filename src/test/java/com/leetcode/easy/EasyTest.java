@@ -1,6 +1,7 @@
 package com.leetcode.easy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,11 +9,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.leetcode.ListNode;
+import com.leetcode.TreeNode;
 
 /**
  * Unit test for simple App.
  */
 public class EasyTest {
+
+    @Test
+    public void _145() {
+        TreeNode node = new TreeNode(1);
+        node.left = new TreeNode(2);
+        node.right = new TreeNode(3);
+        List<Integer> result = new _145BinaryTreePostOrderTraversal().postorderTraversal2Stack(node);
+        System.out.println(Arrays.toString(result.toArray()));
+    }
 
     @Test
     public void _206() {
