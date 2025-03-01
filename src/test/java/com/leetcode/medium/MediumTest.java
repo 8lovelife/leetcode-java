@@ -1,12 +1,19 @@
 package com.leetcode.medium;
 
-import java.util.Arrays;
+import java.util.*;
 
 import org.junit.Test;
 
 import com.leetcode.ListNode;
+import com.leetcode.TreeNode;
 
 public class MediumTest {
+
+    @Test
+    public void _102() {
+        TreeNode rooNode = new TreeNode(1);
+        new _102BinaryTreeLevelOrderTraversal().levelOrderRecursive(rooNode);
+    }
 
     @Test
     public void _92() {
