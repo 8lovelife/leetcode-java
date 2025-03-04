@@ -1,21 +1,22 @@
 {
-    "files.autoSave": "onFocusChange",
-    "editor.fontSize": 14,
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": null
-    // "java.configuration.runtimes": [
-    //         {
-    //             "name": "JavaSE-1.8",
-    //             "path": "/path/to/jdk-8",
-    //         },
-    //         {
-    //             "name": "JavaSE-11",
-    //             "path": "/path/to/jdk-11",
-    //         },
-    //         {
-    //             "name": "JavaSE-23",
-    //             "path": "/path/to/jdk-23",
-    //             "default": true
-    //         },
-    // ]
+  "files.autoSave": "onFocusChange",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": null,
+  "java.debug.settings.onBuildFailureProceed": true
+  // "java.configuration.runtimes": [
+  //         {
+  //             "name": "JavaSE-1.8",
+  //             "path": "/path/to/jdk-8",
+  //         },
+  //         {
+  //             "name": "JavaSE-11",
+  //             "path": "/path/to/jdk-11",
+  //         },
+  //         {
+  //             "name": "JavaSE-23",
+  //             "path": "/path/to/jdk-23",
+  //             "default": true
+  //         },
+  // ]
 }
