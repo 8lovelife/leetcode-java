@@ -10,6 +10,16 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void _105() {
+        // Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+        // Output: [3,9,20,null,null,15,7]
+        int[] preorder = new int[] { 3, 9, 20, 15, 7 };
+        int[] inorder = new int[] { 9, 3, 15, 20, 7 };
+        TreeNode root = new _105ConstructBinaryTree().buildTree(preorder, inorder);
+        root.show();
+    }
+
+    @Test
     public void _102() {
         TreeNode rooNode = new TreeNode(1);
         new _102BinaryTreeLevelOrderTraversal().levelOrderRecursive(rooNode);
