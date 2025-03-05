@@ -68,21 +68,20 @@ public class _116PopulatingNextRightNode {
         if (root == null) {
             return root;
         }
-        Node leftNode = root;
-        while (leftNode.left != null) {
-            Node cur = leftNode;
+        Node startLevelNode = root;
+        while (startLevelNode != null) {
+            Node cur = startLevelNode;
             while (cur != null) {
                 if (cur.left != null) {
                     cur.left.next = cur.right;
-                }
-                if (cur.next != null) {
-                    cur.right.next = cur.next.left;
+                    if (cur.next != null) {
+                        cur.right.next = cur.next.left;
+                    }
                 }
                 cur = cur.next;
             }
-            leftNode = leftNode.left;
+            startLevelNode = startLevelNode.left;
         }
-p
         return root;
     }
 }
