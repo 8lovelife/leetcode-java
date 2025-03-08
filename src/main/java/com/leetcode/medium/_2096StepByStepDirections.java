@@ -9,6 +9,57 @@ import com.leetcode.TreeNode;
 
 public class _2096StepByStepDirections {
 
+    public String getDirectionsLowMemory(TreeNode root, int startValue, int destValue) {
+        TreeNode lca = lca(root, startValue, destValue);
+        StringBuilder startSb = new StringBuilder();
+        StringBuilder destSb = new StringBuilder();
+        findPath(lca, startValue, startSb);
+        findPath(lca, destValue, destSb);
+        return "U".repeat(startSb.length()).concat(destSb.toString());
+    }
+
+    private Boolean findPath(TreeNode root, int value, StringBuilder sb) {
+        if (root.val == value) {
+            return true;
+        }
+
+        sb.append("L");
+        if (root.left != null) {
+            if (findPath(root.left, value, sb)) {
+                return true;
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        sb.append("R");
+        if (root.right != null) {
+            if (findPath(root.right, value, sb)) {
+                return true;
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        return false;
+    }
+
+    private TreeNode lca(TreeNode node, int startValue, int destValue) {
+        if (node == null || node.val == startValue || node.val == destValue) {
+            return node;
+        }
+
+        TreeNode left = lca(node.left, startValue, destValue);
+        TreeNode right = lca(node.right, startValue, destValue);
+
+        if (left != null && right != null) {
+            return node;
+        }
+
+        if (left == null) {
+            return right;
+        }
+        return left;
+    }
+
     public String getDirections(TreeNode root, int startValue, int destValue) {
         Map<Integer, Integer[]> ancestorMap = new HashMap<>();
         recordAncestor(root, null, null, ancestorMap);
