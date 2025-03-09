@@ -2,6 +2,8 @@ package com.leetcode.easy;
 
 import com.leetcode.TreeNode;
 
+import java.util.*;
+
 public class _112PathSum {
 
     public boolean hasPathSumLessCode(TreeNode root, int targetSum) {
@@ -42,4 +44,26 @@ public class _112PathSum {
         return leftResult || rightResult;
 
     }
+
+    public boolean hasPathSumDFSBacktrace(TreeNode root, int targetSum) {
+        List<Integer> result = new ArrayList<>();
+        pathSumDFSBacktrace(root, result, new ArrayList<>(), targetSum);
+        return result.contains(targetSum);
+    }
+
+    private void pathSumDFSBacktrace(TreeNode root, List<Integer> pathSum, List<Integer> path, int targetSum) {
+        if (root == null) {
+            return;
+        }
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            int sum = path.stream().mapToInt(Integer::intValue).sum();
+            pathSum.add(sum);
+        } else {
+            pathSumDFSBacktrace(root.left, pathSum, path, targetSum);
+            pathSumDFSBacktrace(root.right, pathSum, path, targetSum);
+        }
+        path.remove(path.size() - 1);
+    }
+
 }

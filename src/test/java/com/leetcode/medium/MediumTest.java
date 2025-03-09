@@ -10,6 +10,15 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void _437() {
+        Integer[] input = { 1000000000, 1000000000, null, 294967296, null, 1000000000, null, 1000000000, null,
+                1000000000 };
+        TreeNode root = TreeNode.buildTreeFromLevelOrder(input);
+        int result = new _437PathSum().pathSum(root, 0);
+        System.out.println(result);
+    }
+
+    @Test
     public void _2096() {
 
         Integer[] input = { 152, 87, 237, 263, 153, 27, 282, 163, 37, 243, null, 128, 143, 242, 5, 50, 6, 166, 131, 157,
