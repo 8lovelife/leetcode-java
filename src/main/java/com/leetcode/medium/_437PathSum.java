@@ -41,4 +41,29 @@ public class _437PathSum {
         pathSum(node.right, curSum, targetSum, pathSum);
 
     }
+
+
+    public int pathSumPrefixSum(TreeNode root, int targetSum) {
+        Map<Long, Integer> prefixSum = new HashMap<>();
+        prefixSum.put(0L, 1);
+        return pathSumPrefixSum(root, 0L, targetSum, prefixSum);
+    }
+
+    private int pathSumPrefixSum(TreeNode node, Long curSum, int targetSum, Map<Long, Integer> prefixSum) {
+        if (node == null) {
+            return 0;
+        }
+
+        curSum += node.val;
+        Long remain = curSum - targetSum;
+        int count = prefixSum.getOrDefault(remain, 0);
+        prefixSum.merge(curSum, 1, Integer::sum);
+
+        count += pathSumPrefixSum(node.left, curSum, targetSum, prefixSum);
+        count += pathSumPrefixSum(node.right, curSum, targetSum, prefixSum);
+
+        prefixSum.merge(curSum, -1, Integer::sum);
+
+        return count;
+    }
 }
