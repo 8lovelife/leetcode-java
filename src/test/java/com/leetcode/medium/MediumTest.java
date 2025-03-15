@@ -10,6 +10,13 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void _130() {
+        new _130SurroundedRegions()
+                .solve(new char[][] { { 'X', 'X', 'X', 'X' }, { 'X', 'O', 'O', 'X' },
+                        { 'X', 'X', 'O', 'X' }, { 'X', 'O', 'X', 'X' } });
+    }
+
+    @Test
     public void _437() {
         Integer[] input = { 1000000000, 1000000000, null, 294967296, null, 1000000000, null, 1000000000, null,
                 1000000000 };
