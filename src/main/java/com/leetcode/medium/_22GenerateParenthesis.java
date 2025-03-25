@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Stack;
 
 public class _22GenerateParenthesis {
+
     public List<String> generateParenthesis(int n) {
 
         char[] parenthesis = { '(', ')' };
@@ -60,4 +61,37 @@ public class _22GenerateParenthesis {
 
         return stack.isEmpty();
     }
+
+    public List<String> generateParenthesisEfficiency(int n) {
+
+        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        backtrackingEfficiency('(', ')', result, sb, 0, 0, n);
+        return result;
+
+    }
+
+    private void backtrackingEfficiency(char openParenthesis, char closeParenthesis, List<String> result,
+            StringBuilder sb,
+            int leftIndex, int rightIndex,
+            int n) {
+        if (leftIndex + rightIndex == 2 * n) {
+            result.add(sb.toString());
+            return;
+        }
+
+        if (leftIndex < n) {
+            sb.append(openParenthesis);
+            backtrackingEfficiency(openParenthesis, closeParenthesis, result, sb, leftIndex + 1, rightIndex, n);
+            sb.setLength(sb.length() - 1);
+        }
+
+        if (rightIndex < leftIndex) {
+            sb.append(closeParenthesis);
+            backtrackingEfficiency(openParenthesis, closeParenthesis, result, sb, leftIndex, rightIndex + 1, n);
+            sb.setLength(sb.length() - 1);
+        }
+
+    }
+
 }
