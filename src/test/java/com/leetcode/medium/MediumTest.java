@@ -10,6 +10,11 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void __678() {
+        new _678ValidParentheses().checkValidStringGreedy("(*)(");
+    }
+
+    @Test
     public void _130() {
         new _130SurroundedRegions()
                 .solve(new char[][] { { 'X', 'X', 'X', 'X' }, { 'X', 'O', 'O', 'X' },
