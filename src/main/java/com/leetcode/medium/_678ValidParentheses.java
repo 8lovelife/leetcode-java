@@ -1,8 +1,50 @@
 package com.leetcode.medium;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class _678ValidParentheses {
+
+    public boolean checkValidStringDP(String s) {
+        int n = s.length();
+        int[][] memoization = new int[n][n];
+        for (int[] i : memoization) {
+            Arrays.fill(i, -1);
+        }
+
+        return isValidString(0, 0, memoization, s);
+    }
+
+    private boolean isValidString(int index, int openingBrackets, int[][] memoization, String s) {
+
+        if (openingBrackets < 0) {
+            return false;
+        }
+
+        if (index == s.length()) {
+            return openingBrackets == 0;
+        }
+
+        int memo = memoization[index][openingBrackets];
+        if (memo != -1) {
+            return memo == 1;
+        }
+
+        boolean isValid = false;
+        char c = s.charAt(index);
+        if (c == '(') {
+            isValid |= isValidString(index + 1, openingBrackets + 1, memoization, s);
+        } else if (c == ')') {
+            isValid |= isValidString(index + 1, openingBrackets - 1, memoization, s);
+        } else {
+            isValid |= isValidString(index + 1, openingBrackets + 1, memoization, s);
+            isValid |= isValidString(index + 1, openingBrackets - 1, memoization, s);
+            isValid |= isValidString(index + 1, openingBrackets, memoization, s);
+        }
+
+        memoization[index][openingBrackets] = isValid ? 1 : 0;
+        return isValid;
+    }
 
     public boolean checkValidStringGreedy(String s) {
         int n = s.length();

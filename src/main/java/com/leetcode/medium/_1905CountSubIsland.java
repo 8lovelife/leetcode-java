@@ -61,10 +61,10 @@ public class _1905CountSubIsland {
                 return false;
             }
             grid2[r][c] = 0;
-            boolean top = dfs(grid2, r - 1, c, rL, cL, grid1);
-            boolean down = dfs(grid2, r + 1, c, rL, cL, grid1);
-            boolean left = dfs(grid2, r, c - 1, rL, cL, grid1);
-            boolean right = dfs(grid2, r, c + 1, rL, cL, grid1);
+            boolean top = dfs2(grid2, r - 1, c, rL, cL, grid1);
+            boolean down = dfs2(grid2, r + 1, c, rL, cL, grid1);
+            boolean left = dfs2(grid2, r, c - 1, rL, cL, grid1);
+            boolean right = dfs2(grid2, r, c + 1, rL, cL, grid1);
             subIsland = top && down && left && right;
         }
 
