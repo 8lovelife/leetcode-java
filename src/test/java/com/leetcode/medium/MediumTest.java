@@ -10,6 +10,12 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void _1249() {
+        String result = new _1249MinRemoveBeParentheses().minRemoveToMakeValidWhile("lee(t(c)o)de)");
+        System.out.println(result);
+    }
+
+    @Test
     public void __678() {
         new _678ValidParentheses().checkValidStringGreedy("(*)(");
     }

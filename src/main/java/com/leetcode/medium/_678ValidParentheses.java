@@ -5,7 +5,37 @@ import java.util.Stack;
 
 public class _678ValidParentheses {
 
-    public boolean checkValidStringDP(String s) {
+    public boolean checkValidStringBottomUp(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n + 1][n + 1];
+        dp[n][0] = true;
+        for (int i = n - 1; i >= 0; i--) {
+            for (int openBracket = 0; openBracket < n; openBracket++) {
+                boolean isValid = false;
+                char c = s.charAt(i);
+                if (c == '*') {
+
+                    isValid |= dp[i + 1][openBracket + 1];
+                    isValid |= dp[i + 1][openBracket];
+
+                    if (openBracket > 0) {
+                        isValid |= dp[i + 1][openBracket - 1];
+                    }
+
+                } else if (c == '(') {
+                    isValid |= dp[i + 1][openBracket + 1];
+                } else if (openBracket > 0) {
+                    isValid |= dp[i + 1][openBracket - 1];
+                }
+
+                dp[i][openBracket] = isValid;
+            }
+        }
+
+        return dp[0][0];
+    }
+
+    public boolean checkValidStringDPTopDown(String s) {
         int n = s.length();
         int[][] memoization = new int[n][n];
         for (int[] i : memoization) {
