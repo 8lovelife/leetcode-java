@@ -10,8 +10,13 @@ import com.leetcode.TreeNode;
 public class MediumTest {
 
     @Test
+    public void _1963() {
+        new _1963MiniSwapNumber().minSwaps("]]][[[");
+    }
+
+    @Test
     public void _1249() {
-        String result = new _1249MinRemoveBeParentheses().minRemoveToMakeValidWhile("lee(t(c)o)de)");
+        String result = new _1249MinRemoveBeParentheses().minRemoveToMakeValid("lee(t(c)o)de)");
         System.out.println(result);
     }
 
