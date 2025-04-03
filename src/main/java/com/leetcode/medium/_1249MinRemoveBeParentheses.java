@@ -25,11 +25,6 @@ public class _1249MinRemoveBeParentheses {
                 closingBrackets--;
             }
 
-            if (openingBrackets < 0) {
-                chars[i] = '0';
-                openingBrackets = 0;
-            }
-
             if (closingBrackets < 0) {
                 chars[n - 1 - i] = '0';
                 closingBrackets = 0;
