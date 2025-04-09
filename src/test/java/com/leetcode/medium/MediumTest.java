@@ -9,6 +9,21 @@ import com.leetcode.TreeNode;
 
 public class MediumTest {
 
+    // head =
+
+    // [2,1]
+
+    @Test
+    public void _86() {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(4);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(2);
+        head.next.next.next.next = new ListNode(5);
+
+        new _86PartitionList().partition(head, 2);
+    }
+
     @Test
     public void _1963() {
         new _1963MiniSwapNumber().minSwaps("]]][[[");
