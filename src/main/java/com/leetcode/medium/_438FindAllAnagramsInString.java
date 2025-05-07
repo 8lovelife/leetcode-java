@@ -5,6 +5,39 @@ import java.util.List;
 
 public class _438FindAllAnagramsInString {
 
+    public List<Integer> findAnagrams3(String s, String p) {
+        List<Integer> ans = new ArrayList<>();
+        int n = s.length();
+        int windowsSize = p.length();
+        if (windowsSize > n) {
+            return ans;
+        }
+
+        int[] counts = new int[26];
+        char[] sC = s.toCharArray();
+        char[] pC = p.toCharArray();
+        for (int i = 0; i < windowsSize; i++) {
+            counts[pC[i] - 'a']++;
+            counts[sC[i] - 'a']--;
+        }
+
+        if (allCountsZero(counts)) {
+            ans.add(0);
+        }
+
+        for (int j = windowsSize; j < n; j++) {
+            int slideOutIndex = j - windowsSize;
+            counts[sC[slideOutIndex] - 'a']++;
+            counts[sC[j] - 'a']--;
+            if (allCountsZero(counts)) {
+                ans.add(slideOutIndex + 1);
+            }
+        }
+
+        return ans;
+
+    }
+
     /**
      * O( SL + PL )
      * 
