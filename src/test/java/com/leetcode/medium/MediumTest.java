@@ -6,12 +6,24 @@ import org.junit.Test;
 
 import com.leetcode.ListNode;
 import com.leetcode.TreeNode;
+import com.leetcode.easy._121BestBuySellStock;
 
 public class MediumTest {
 
     @Test
-    public void _53() {
+    public void _2906() {
+        new _2906ProductMatrix().constructProductMatrix(new int[][] { { 1, 2 }, { 3, 4 } });
+        new _2906ProductMatrix().constructProductMatrix(new int[][] { { 12345 }, { 2 }, { 1 } });
+    }
 
+    @Test
+    public void _121() {
+        new _121BestBuySellStock().maxProfitAndPrintBuySellDays(new int[] { 1, 2, 3, 4, 5 });
+    }
+
+    @Test
+    public void _53() {
+        new _53MaxSumSubArray().maxSubArray(new int[] { 7, 1, 5, 3, 6, 4 });
     }
 
     @Test

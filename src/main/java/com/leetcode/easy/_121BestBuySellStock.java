@@ -4,22 +4,29 @@ public class _121BestBuySellStock {
 
     public int maxProfitAndPrintBuySellDays(int[] prices) {
         int miniBuy = Integer.MAX_VALUE;
+        int miniPriceDay = -1;
         int maxProfit = 0;
         int sellDay = -1;
         int buyDay = -1;
         for (int i = 0; i < prices.length; i++) {
             if (prices[i] < miniBuy) {
                 miniBuy = prices[i];
-                buyDay = i;
+                miniPriceDay = i;
             }
             int curProfit = prices[i] - miniBuy;
             if (curProfit > maxProfit) {
                 maxProfit = curProfit;
+                buyDay = miniPriceDay;
                 sellDay = i;
             }
         }
-        System.out.println("Buy Day " + buyDay + " Buy Price " + prices[sellDay]);
-        System.out.println("Sell Day " + sellDay + " Sell Price " + prices[sellDay]);
+
+        if (maxProfit > 0) {
+            System.out.println("Buy Day " + (buyDay + 1) + " Buy Price " + prices[buyDay]);
+            System.out.println("Sell Day " + (sellDay + 1) + " Sell Price " + prices[sellDay]);
+            System.out.println("Max Profit " + maxProfit);
+        }
+
         return maxProfit;
     }
 
