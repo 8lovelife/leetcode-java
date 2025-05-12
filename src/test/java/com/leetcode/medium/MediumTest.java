@@ -11,6 +11,11 @@ import com.leetcode.easy._121BestBuySellStock;
 public class MediumTest {
 
     @Test
+    public void _15() {
+        new _15_3Sum().threeSum(new int[] { 0, 0, 0, 0 });
+    }
+
+    @Test
     public void _2906() {
         new _2906ProductMatrix().constructProductMatrix(new int[][] { { 1, 2 }, { 3, 4 } });
         new _2906ProductMatrix().constructProductMatrix(new int[][] { { 12345 }, { 2 }, { 1 } });
