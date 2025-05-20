@@ -11,6 +11,11 @@ import com.leetcode.easy._121BestBuySellStock;
 public class MediumTest {
 
     @Test
+    public void _18() {
+        new _18_4Sum().fourSum(new int[] { 1000000000, 1000000000, 1000000000, 1000000000 }, -294967296);
+    }
+
+    @Test
     public void _15() {
         new _15_3Sum().threeSum(new int[] { 0, 0, 0, 0 });
     }
