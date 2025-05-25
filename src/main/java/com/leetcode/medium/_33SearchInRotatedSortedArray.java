@@ -11,6 +11,8 @@ public class _33SearchInRotatedSortedArray {
 
             if (midNum == target) {
                 return mid;
+                // if the array not distinct , then should be less and equal , midNum <=
+                // nums[right]
             } else if (midNum < nums[right]) {
                 if (target <= nums[right] && target > midNum) {
                     left = mid + 1;
