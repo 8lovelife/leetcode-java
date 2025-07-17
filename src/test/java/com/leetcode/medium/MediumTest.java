@@ -11,6 +11,11 @@ import com.leetcode.easy._121BestBuySellStock;
 public class MediumTest {
 
     @Test
+    public void _139() {
+        new _139WordBreak().wordBreak("leetcode", Arrays.asList("leet", "code"));
+    }
+
+    @Test
     public void _18() {
         new _18_4Sum().fourSum(new int[] { 1000000000, 1000000000, 1000000000, 1000000000 }, -294967296);
     }
