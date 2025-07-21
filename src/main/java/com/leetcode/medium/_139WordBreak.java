@@ -105,6 +105,7 @@ public class _139WordBreak {
         return dp[n - 1];
     }
 
+    // n * m * k
     public boolean wordBreakBottomUpDp2(String s, List<String> wordDict) {
         int n = s.length();
         Set<String> words = new HashSet<>(wordDict);
