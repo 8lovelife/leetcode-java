@@ -18,7 +18,6 @@ public class _198HouseRobber {
     }
 
     // top-down O(N)
-
     public int robWithMemory(int[] nums) {
         int[] robbed = new int[nums.length];
         Arrays.fill(robbed, -1);

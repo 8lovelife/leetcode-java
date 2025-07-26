@@ -22,7 +22,7 @@ public class MediumTest {
 
     @Test
     public void _15() {
-        new _15_3Sum().threeSum(new int[] { 0, 0, 0, 0 });
+        new _15_3Sum().threeSum2(new int[] { 0, 0, 0, 0 });
     }
 
     @Test
